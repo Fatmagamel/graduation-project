@@ -1,10 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lastupdate/HomeScreen.dart';
-import 'package:lastupdate/loginscreen.dart';
-import 'package:lastupdate/onboarding.dart';
-import 'package:lastupdate/registerScreen.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+
+  options: DefaultFirebaseOptions.currentPlatform,
+
+);
   runApp(const MyApp());
 }
 
@@ -36,7 +42,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const OnboardingScreen(title: 'Flutter Demo Home Page'),
+      home: const HomeScreen(title: 'Flutter Demo Home Page'),
     );
   }
 }

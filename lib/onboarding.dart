@@ -56,17 +56,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.black,
+      backgroundColor: Colors.black,
       body: SafeArea(child:
           Container(
             width: double.infinity,
             height: double.infinity,
             decoration: const  BoxDecoration(
-              gradient: LinearGradient(
+             /* gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Colors.black87, Color(0xFF4A1818)],
-              ),
+                colors: [Colors.black87],
+              ),*/
             ),
         child: Column(
           children: [
@@ -117,7 +117,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             page.title,
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              color: Colors.lightBlue
+              color: const Color(0xFF10B981)
             ),
             textAlign: TextAlign.center,
           ),
@@ -146,7 +146,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
              shape: BoxShape.circle,
              color:
              _currentPage == index
-                 ? Colors.lightBlue
+                 ? const Color(0xFF10B981)
                  : Colors.grey.withOpacity(0.3),
            ),
          ),
@@ -160,9 +160,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
          mainAxisAlignment: MainAxisAlignment.spaceBetween,
        children: [
            if (_currentPage > 0)
-             TextButton(
+             ElevatedButton(
                style: ButtonStyle(
-                 foregroundColor: MaterialStateProperty.all(Colors.lightBlue),  // النص باللون الأزرق
+
+                 backgroundColor: WidgetStateProperty.all(const Color(0xFF10B981)),  // اللون عند التفاعل
+                 foregroundColor: WidgetStateProperty.all(Colors.white), // لون النص
+                 elevation: WidgetStateProperty.all(5),  // الظل (الإضاءة)
                ),
                onPressed: () {
                  _pageController.previousPage(
@@ -176,9 +179,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
            const Spacer(),
            ElevatedButton(
              style: ButtonStyle(
-               backgroundColor: MaterialStateProperty.all(Colors.lightBlue),  // اللون عند التفاعل
-               foregroundColor: MaterialStateProperty.all(Colors.white), // لون النص
-               elevation: MaterialStateProperty.all(5),  // الظل (الإضاءة)
+               backgroundColor: WidgetStateProperty.all(const Color(0xFF10B981)),  // اللون عند التفاعل
+               foregroundColor: WidgetStateProperty.all(Colors.white), // لون النص
+               elevation: WidgetStateProperty.all(5),  // الظل (الإضاءة)
              ),
 
              onPressed: () {
@@ -190,7 +193,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                } else {
                  
                  // Navigate to the main app or home screen
-                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen(title: " ")));
+                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen(title: " ")));
                }
 
 

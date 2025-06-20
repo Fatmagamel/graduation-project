@@ -3,7 +3,7 @@ import 'package:lastupdate/registerScreen.dart';
 
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key, required String title}) : super(key: key);
+  const LoginScreen({super.key, required String title});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -30,17 +30,11 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Expanded(child:
-      Container(
+      SizedBox(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.black87, Color(0xFF4A1818)],
-          ),
-        ),
         child: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(24.0),
@@ -123,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: _handleSignIn,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
+                      backgroundColor: const Color(0xFF10B981),
                       foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
@@ -159,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: const Text(
                           'Register',
                           style: TextStyle(
-                            color: Colors.redAccent,
+                            color: Color(0xFF10B981),
                             fontWeight: FontWeight.bold,
                           ),
                         ),

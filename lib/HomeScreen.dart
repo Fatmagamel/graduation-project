@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lastupdate/profileScreen.dart';
+
+import 'HelmetScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required String title});
@@ -8,26 +11,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+  final ScrollController _scrollController = ScrollController();
+
   final List<StoryData> stories = [
-    StoryData(
-        username: 'User 1',
-        imagePath: 'assets/images/avatar1.png',
-        hasStory: true),
-    StoryData(
-        username: 'User 2',
-        imagePath: 'assets/images/avatar2.jpg',
-        hasStory: true),
-    StoryData(
-        username: 'User 3',
-        imagePath: 'assets/images/avatar3.jpg',
-        hasStory: true),
+    StoryData(username: 'User 1', imagePath: 'assets/images/avatar1.png', hasStory: true),
+    StoryData(username: 'User 2', imagePath: 'assets/images/avatar2.png', hasStory: true),
+    StoryData(username: 'User 3', imagePath: 'assets/images/avatar3.png', hasStory: true),
+    StoryData(username: 'User 4', imagePath: 'assets/images/avatar4.png', hasStory: false),
+    StoryData(username: 'User 5', imagePath: 'assets/images/avatar5.png', hasStory: true),
   ];
 
   final List<PostData> posts = [
     PostData(
       username: 'Ola Max',
-      userImage: 'assets/images/ola.jpg',
-      postImage: 'assets/images/sky.jpg',
+      userImage: 'assets/images/ola.png',
+      postImage: 'assets/images/sky.png',
       timeAgo: '10 mins ago',
       likes: 90,
       comments: 3,
@@ -35,8 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
     PostData(
       username: 'Ola Max',
-      userImage: 'assets/images/ola.jpg',
-      postImage: 'assets/images/sky.jpg',
+      userImage: 'assets/images/ola.png',
+      postImage: 'assets/images/sky.png',
       timeAgo: '10 mins ago',
       likes: 90,
       comments: 3,
@@ -45,33 +44,61 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      backgroundColor: Colors.black,
+      body: SizedBox(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.black,
-              const Color(0xFF4A1818),
-            ],
-          ),
-        ),
+
         child: SafeArea(
+          bottom: false,
           child: Column(
             children: [
-              _buildHeader(),
-              _buildStories(),
               Expanded(
-                child: _buildPosts(),
+                child: IndexedStack(
+                  index: _currentIndex,
+                  children: [
+                    _buildMainFeed(),
+                    const ProfileScreen(),
+
+                    const HelmetScreen(title: '',),
+
+                  ],
+                ),
               ),
               _buildBottomNavigation(),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildMainFeed() {
+    return SingleChildScrollView(
+      controller: _scrollController,
+      child: Column(
+        children: [
+          _buildHeader(),
+          _buildStories(),
+          ListView.builder(
+            padding: const EdgeInsets.all(16),
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: posts.length,
+            itemBuilder: (context, index) {
+              return _buildPostCard(posts[index]);
+            },
+          ),
+          const SizedBox(height: 20),
+        ],
       ),
     );
   }
@@ -112,18 +139,9 @@ class _HomeScreenState extends State<HomeScreen> {
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.1),
               shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.white.withOpacity(0.1), // لون الظل
-                  offset: Offset(4, 4), // اتجاه الظل (أفقي، رأسي)
-                  blurRadius: 15, // درجة الضباب (نعومة الظل)
-                  spreadRadius: 2, // مدى انتشار الظل
-                ),
-              ],
-
             ),
             child: const Icon(
-              Icons.notifications_active,
+              Icons.notifications_active_sharp,
               color: Colors.white,
             ),
           ),
@@ -135,10 +153,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildStories() {
     return Container(
       height: 100,
-
+      margin: const EdgeInsets.only(bottom: 16),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         itemCount: stories.length + 1,
         itemBuilder: (context, index) {
           if (index == 0) {
@@ -153,28 +171,26 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildAddStoryButton() {
     return Container(
-      margin: const EdgeInsets.only(right: 16),
-      width: 80,
-
+      margin: const EdgeInsets.only(right: 12),
+      width: 70,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(28),
-        boxShadow: [
-          BoxShadow(
-            color: Color(0xFFFDF0FF), // لون الظل
-            offset: Offset(0, 2), // اتجاه الظل (أفقي، رأسي)
-            blurRadius: 4, // درجة الضباب (نعومة الظل)
-            spreadRadius: 0, // مدى انتشار الظل
-
-          ),
-        ],
       ),
-      child: const Center(
+      child:Container(
+       // margin: const EdgeInsets.only(right: 12),
+        width: 60,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child:  const Center(
         child: Icon(
           Icons.add,
-          size: 45,
+          size: 50,
           color: Colors.black,
         ),
+      ),
       ),
     );
   }
@@ -185,18 +201,19 @@ class _HomeScreenState extends State<HomeScreen> {
         // TODO: Implement story view
       },
       child: Container(
-        margin: const EdgeInsets.only(right: 16),
-        width: 70,
+        margin: const EdgeInsets.only(right: 12),
+        width: 86,
+        height: 78,
         child: Column(
           children: [
             Container(
-              width: 86,
-              height: 78,
+              width: 80,
+              height: 72,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(28),
                 border: Border.all(
                   color: story.hasStory ? Colors.blue : Colors.grey,
-                  width: 1,
+                  width: 2,
                 ),
                 image: DecorationImage(
                   image: AssetImage(story.imagePath),
@@ -220,22 +237,22 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildPosts() {
-    return ListView.builder(
-      padding: const EdgeInsets.all(16),
-      itemCount: posts.length,
-      itemBuilder: (context, index) {
-        return _buildPostCard(posts[index]);
-      },
-    );
-  }
-
   Widget _buildPostCard(PostData post) {
     return Container(
+      width: 327,
+      height: 340,
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(32),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2), // لون الظل
+            offset: const Offset(0, 4), // اتجاه الظل (أفقي، رأسي)
+            blurRadius: 10, // درجة الضباب (نعومة الظل)
+            spreadRadius: 2, // مدى انتشار الظل
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -363,42 +380,114 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildBottomNavigation() {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      height: 80,
+      margin: const EdgeInsets.fromLTRB(24, 0, 24, 24),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.1),
-        borderRadius: const BorderRadius.vertical(
-          top: Radius.circular(30),
-        ),
+        borderRadius: BorderRadius.circular(30),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      child: Stack(
         children: [
-          _buildNavItem(Icons.person, 'Profile', true),
-          _buildNavItem(Icons.sports_motorsports, 'Helmet', false),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildNavItem(
+                Icons.person_outline,
+                'Profile',
+                _currentIndex == 1,
+                1,
+                color: const Color(0xFF10B981),
+              ),
+              const SizedBox(width: 60),
+              _buildNavItem(
+                Icons.sports_motorsports,
+                'Helmet',
+                _currentIndex == 2,
+                2,
+                color: const Color(0xFF10B981),
+              ),
+            ],
+          ),
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _currentIndex = 0;
+                });
+              },
+              child: Container(
+                height: 60,
+                width: 60,
+                margin: const EdgeInsets.only(bottom: 30),
+                decoration: BoxDecoration(
+                  color: _currentIndex == 0
+                      ? const Color(0xFF10B981)
+                      : Colors.white,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Icon(
+                  Icons.home,
+                  size: 30,
+                  color: _currentIndex == 0 ? Colors.white : Colors.black,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildNavItem(IconData icon, String label, bool isSelected) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(
-          icon,
-          color: isSelected ? Colors.white : Colors.white.withOpacity(0.5),
+  Widget _buildNavItem(
+      IconData icon,
+      String label,
+      bool isSelected,
+      int index, {
+        Color color = Colors.white,
+      }) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _currentIndex = index;
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        decoration: BoxDecoration(
+          color:
+          isSelected ? Colors.white.withOpacity(0.2) : Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
         ),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: TextStyle(
-            color: isSelected ? Colors.white : Colors.white.withOpacity(0.5),
-            fontSize: 12,
-          ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              color: isSelected ? color : Colors.white.withOpacity(0.5),
+              size: 24,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: TextStyle(
+                color: isSelected ? color : Colors.white.withOpacity(0.5),
+                fontSize: 12,
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
+
 }
 
 class StoryData {

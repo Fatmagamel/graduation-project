@@ -38,21 +38,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      backgroundColor: Colors.black,
+      body: SizedBox(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.black.withOpacity(0.8),
-              Colors.black,
-              const Color(0xFF4A1818),
-            ],
 
-          ),
-        ),
         child: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(24.0),
@@ -159,7 +149,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ElevatedButton(
                     onPressed: _handleRegister,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
+                      backgroundColor: const Color(0xFF10B981),
                       foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
@@ -190,7 +180,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: const Text(
                           'Sign In',
                           style: TextStyle(
-                            color: Colors.redAccent,
+                            color: Color(0xFF10B981),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -234,7 +224,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           vertical: 16,
         ),
         errorStyle: const TextStyle(
-          color: Colors.redAccent,
+          color: Color(0xFF10B981),
         ),
       ),
       validator: validator,
