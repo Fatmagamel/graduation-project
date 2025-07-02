@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lastupdate/profileScreen.dart';
 
 import 'HelmetScreen.dart';
+import 'notifications.dart' show NotificationsPage;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required String title});
@@ -66,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   index: _currentIndex,
                   children: [
                     _buildMainFeed(),
-                    const ProfileScreen(),
+                    const ProfileScreen(title: '',),
 
                     const HelmetScreen(title: '',),
 
@@ -140,10 +141,15 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.white.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
-            child: const Icon(
-              Icons.notifications_active_sharp,
-              color: Colors.white,
-            ),
+            child: IconButton(
+              icon: Icon(Icons.notifications_active_sharp),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NotificationsPage()),
+                );
+              },
+            )
           ),
         ],
       ),

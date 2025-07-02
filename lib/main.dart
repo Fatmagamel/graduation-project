@@ -1,6 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:lastupdate/HelmetScreen.dart';
 import 'package:lastupdate/HomeScreen.dart';
+import 'package:lastupdate/code_Screen.dart';
+import 'package:lastupdate/loginscreen.dart';
+import 'package:lastupdate/notifications.dart';
+import 'package:lastupdate/onboarding.dart';
+import 'package:lastupdate/profileScreen.dart';
 
 import 'firebase_options.dart';
 
@@ -42,7 +48,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(title: 'Flutter Demo Home Page'),
+      home: HomeScreen(title: 'Flutter Demo Home Page'),
     );
   }
 }

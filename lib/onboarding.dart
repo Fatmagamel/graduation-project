@@ -16,19 +16,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<OnboardingPage> _pages = [
     OnboardingPage(
-      image: 'assets/images/onboarding1.png',
+      image: 'assets/images/logo.png',
       title: 'Welcome to Our App',
       description:
       'Discover amazing features and possibilities with our innovative solution.',
     ),
     OnboardingPage(
-      image: 'assets/images/onboarding2.png',
+      image: 'assets/images/logo.png',
       title: 'Easy to Use',
       description:
       'Simple and intuitive interface designed for the best user experience.',
     ),
     OnboardingPage(
-      image: 'assets/images/onboarding3.png',
+      image: 'assets/images/logo.png',
       title: 'Get Started',
       description:
       'Join us today and begin your journey with our powerful platform.',
