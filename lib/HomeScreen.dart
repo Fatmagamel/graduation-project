@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lastupdate/profileScreen.dart';
 
 import 'HelmetScreen.dart';
+import 'emergency contacts.dart';
+import 'notifications.dart' show NotificationsPage;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required String title});
@@ -66,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   index: _currentIndex,
                   children: [
                     _buildMainFeed(),
-                    const ProfileScreen(),
+                    const ProfileScreen(title: '',),
 
                     const HelmetScreen(title: '',),
 
@@ -88,6 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           _buildHeader(),
           _buildStories(),
+          _buildEmergencyQuickAccess(),
           ListView.builder(
             padding: const EdgeInsets.all(16),
             shrinkWrap: true,
@@ -140,11 +143,48 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.white.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
-            child: const Icon(
-              Icons.notifications_active_sharp,
-              color: Colors.white,
-            ),
+            child: IconButton(
+              icon: Icon(Icons.notifications_active_sharp),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NotificationsPage()),
+                );
+              },
+            )
           ),
+
+
+        //const Spacer(),
+
+    const SizedBox(width: 12),
+    GestureDetector(
+    onTap: () {
+    Navigator.push(
+    context,
+    MaterialPageRoute(
+    builder: (context) => const EmergencyContactsScreen(),
+    ),
+    );
+    },
+    child: Container(
+    padding: const EdgeInsets.all(8),
+    decoration: BoxDecoration(
+    color: Colors.red.withOpacity(0.2),
+    shape: BoxShape.circle,
+    border: Border.all(
+    color: Colors.red.withOpacity(0.5),
+    width: 1,
+    ),
+    ),
+    child: const Icon(
+    Icons.contact_emergency,
+    color: Colors.red,
+    size: 20,
+    ),
+    ),
+    ),
+
         ],
       ),
     );
@@ -236,6 +276,97 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+
+
+
+  Widget _buildEmergencyQuickAccess() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Colors.red.withOpacity(0.3),
+            Colors.red.withOpacity(0.1),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: Colors.red.withOpacity(0.3),
+          width: 1,
+        ),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.red.withOpacity(0.2),
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.contact_emergency,
+              color: Colors.red,
+              size: 24,
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Emergency Contacts',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'Quick access to emergency services',
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.7),
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EmergencyContactsScreen(),
+                ),
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Text(
+                'Manage',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 
   Widget _buildPostCard(PostData post) {
     return Container(

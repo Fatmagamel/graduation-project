@@ -1,8 +1,23 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:lastupdate/HelmetScreen.dart';
 import 'package:lastupdate/HomeScreen.dart';
+import 'package:lastupdate/code_Screen.dart';
+import 'package:lastupdate/emergency%20contacts.dart';
+import 'package:lastupdate/loginscreen.dart';
+import 'package:lastupdate/notifications.dart';
+import 'package:lastupdate/onboarding.dart';
+import 'package:lastupdate/profileScreen.dart';
 
 import 'firebase_options.dart';
+
+/*import 'package:permission_handler/permission_handler.dart';
+
+void requestPermissions() async {
+  await Permission.location.request();
+  await Permission.sms.request();
+  await Permission.phone.request();
+}*/
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +57,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(title: 'Flutter Demo Home Page'),
+      home: HomeScreen(title: '',),
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lastupdate/HomeScreen.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({super.key, required String title});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -34,16 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
-      /*  decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.black,
-              const Color(0xFF10B981),
-            ],
-          ),
-        ),*/
+
         child: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -114,7 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: const DecorationImage(
-                  image: AssetImage('assets/images/profile_abdelrahman.png'),
+                  image: AssetImage('assets/images/profile.png'),
                   fit: BoxFit.cover,
                 ),
                 border: Border.all(

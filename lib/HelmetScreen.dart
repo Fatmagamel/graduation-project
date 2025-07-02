@@ -10,16 +10,7 @@ class HelmetScreen extends StatelessWidget {
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
-      /*  decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.black,
-              const Color(0xFF4A1818),
-            ],
-          ),
-        ),*/
+    
         child: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
